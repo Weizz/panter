@@ -5,8 +5,10 @@ import javax.swing.*;
 import java.awt.event.*;
 
 public class window extends JFrame{
-    window(String name, Dimension size){
+    panter parent = null;
+    window(String name, Dimension size, panter p){
         super(name);
+        parent = p;
         this.setSize(size);
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(screen.width/2-500/2, screen.height/2-500/2);
@@ -15,8 +17,9 @@ public class window extends JFrame{
         exit_btn.addMouseListener(
                 new MouseAdapter(){
                     public void mouseClicked(MouseEvent e){
-                        dispose();
-                        System.exit(0);
+                        parent.speak();
+                        //dispose();
+                        //System.exit(0);
                     }
                 }
         );
@@ -24,9 +27,7 @@ public class window extends JFrame{
         frm.addMouseListener(
                 new MouseAdapter(){
                     public void mouseClicked(MouseEvent e){
-                        PointerInfo pi = MouseInfo.getPointerInfo();
-                        Point point = pi.getLocation();
-                        System.out.println("x:" + point.x + " | y: "  + point.y);
+                        System.out.println("x:" + e.getX() + " | y: "  + e.getY());
                     }
                 }
         );
