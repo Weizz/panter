@@ -3,6 +3,7 @@ package panter;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import panter.panter.Status;
 
 public class Toolbar extends JPanel{
     window parent = null;
@@ -13,6 +14,7 @@ public class Toolbar extends JPanel{
         parent = p;
         
         JButton exit_btn = new JButton("Exit");
+        JButton choice_btn = new JButton("Choice");
         
         undraw_btn.setEnabled(false);
         
@@ -28,10 +30,10 @@ public class Toolbar extends JPanel{
         draw_btn.addMouseListener(
                 new MouseAdapter(){
                     public void mouseClicked(MouseEvent e){
-                        parent.parent.draw_flag=true;
+                        parent.parent.status = Status.drawline;
                         Toolbar.this.draw_btn.setEnabled(false);
                         Toolbar.this.undraw_btn.setEnabled(true);
-                        System.out.println(parent.parent.draw_flag);
+                        Toolbar.this.parent.draw_area.lastpoint = new Point(-1, -1);
                     }
                 }
         );
@@ -39,16 +41,16 @@ public class Toolbar extends JPanel{
         undraw_btn.addMouseListener(
                 new MouseAdapter(){
                     public void mouseClicked(MouseEvent e){
-                        parent.parent.draw_flag=false;
+                        parent.parent.status = Status.undraw;
                         Toolbar.this.draw_btn.setEnabled(true);
                         Toolbar.this.undraw_btn.setEnabled(false);
-                        System.out.println(parent.parent.draw_flag);
                     }
                 }
         );
         
         this.add(draw_btn);
         this.add(undraw_btn);
+        this.add(choice_btn);
         this.add(exit_btn);
         this.setBackground(Color.lightGray);
     }
