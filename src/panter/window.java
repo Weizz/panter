@@ -14,7 +14,7 @@ public class window extends JFrame{
         
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize(size);
-        this.setLocation(screen.width/2-500/2, screen.height/2-500/2);
+        this.setLocation(screen.width/2-800/2, screen.height/2-500/2);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 
         Menu menu = new Menu(this);

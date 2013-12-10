@@ -10,6 +10,8 @@ public class Toolbar extends JPanel{
     JButton draw_btn = new JButton("Draw");
     JButton undraw_btn = new JButton("UNDraw");
     JButton free_btn = new JButton("FreeDraw");
+    JButton erase_btn = new JButton("Eraser");
+    
     Toolbar(window p){
         super(new FlowLayout(FlowLayout.LEFT));
         parent = p;
@@ -18,6 +20,14 @@ public class Toolbar extends JPanel{
         JButton choice_btn = new JButton("Color");
         JButton thick_btn = new JButton("Thickness");
         undraw_btn.setEnabled(false);
+        
+        draw_btn.setBackground(Color.lightGray);
+        free_btn.setBackground(Color.lightGray);
+        exit_btn.setBackground(Color.lightGray);
+        erase_btn.setBackground(Color.lightGray);
+        thick_btn.setBackground(Color.lightGray);
+        undraw_btn.setBackground(Color.lightGray);
+        choice_btn.setBackground(Color.lightGray);
         
         exit_btn.addMouseListener(
                 new MouseAdapter(){
@@ -34,6 +44,7 @@ public class Toolbar extends JPanel{
                         Toolbar.this.draw_btn.setEnabled(false);
                         Toolbar.this.undraw_btn.setEnabled(true);
                         Toolbar.this.free_btn.setEnabled(true);
+                        Toolbar.this.erase_btn.setEnabled(true);
                         Toolbar.this.parent.draw_area.lastpoint = new Point(-1, -1);
                     }
                 }
@@ -46,6 +57,7 @@ public class Toolbar extends JPanel{
                         Toolbar.this.draw_btn.setEnabled(true);
                         Toolbar.this.free_btn.setEnabled(true);
                         Toolbar.this.undraw_btn.setEnabled(false);
+                        Toolbar.this.erase_btn.setEnabled(true);
                     }
                 }
         );
@@ -58,6 +70,7 @@ public class Toolbar extends JPanel{
                         Toolbar.this.draw_btn.setEnabled(true);
                         Toolbar.this.free_btn.setEnabled(false);
                         Toolbar.this.undraw_btn.setEnabled(true);
+                        Toolbar.this.erase_btn.setEnabled(true);
                     }
                 }
         );
@@ -79,9 +92,22 @@ public class Toolbar extends JPanel{
                 }
         );
         
+        erase_btn.addMouseListener(
+                new MouseAdapter(){
+                    public void mouseClicked(MouseEvent e){
+                        Toolbar.this.draw_btn.setEnabled(true);
+                        Toolbar.this.free_btn.setEnabled(true);
+                        Toolbar.this.undraw_btn.setEnabled(true);
+                        Toolbar.this.erase_btn.setEnabled(false);
+                        parent.parent.status = Status.erase;
+                    }
+                }
+        );
+        
         
         this.add(draw_btn);
         this.add(free_btn);
+        this.add(erase_btn);
         this.add(undraw_btn);
         this.add(choice_btn);
         this.add(thick_btn);

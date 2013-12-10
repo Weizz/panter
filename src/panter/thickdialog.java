@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
-import javax.swing.text.*;  
+import panter.panter.Status;
 
 
 public class thickdialog extends JDialog{
@@ -13,7 +13,15 @@ public class thickdialog extends JDialog{
     JPanel fence = new JPanel();
     Canvas preview = new Canvas(){
             public void paint(Graphics g) {
-                g.fillOval(preview.getWidth()/2-s.getValue()/2, preview.getHeight()/2-s.getValue()/2, s.getValue(), s.getValue());
+                if(thickdialog.this.parent.parent.parent.status == Status.erase){
+                    g.setColor(Color.white);
+                    g.fillRect(preview.getWidth()/2-s.getValue()/2, preview.getHeight()/2-s.getValue()/2, s.getValue(), s.getValue());
+                    g.setColor(Color.black);
+                    g.drawRect(preview.getWidth()/2-s.getValue()/2, preview.getHeight()/2-s.getValue()/2, s.getValue(), s.getValue());
+                }
+                else{
+                    g.fillOval(preview.getWidth()/2-s.getValue()/2, preview.getHeight()/2-s.getValue()/2, s.getValue(), s.getValue());
+                }
             }
         };
     JLabel label =  new JLabel("Size : ", JLabel.LEFT);
@@ -45,8 +53,17 @@ public class thickdialog extends JDialog{
                     public void mouseDragged(MouseEvent e){
                         text.setText(Integer.toString(s.getValue()));
                         Graphics g = thickdialog.this.preview.getGraphics();
-                        g.clearRect(0, 0, thickdialog.this.preview.getWidth(), thickdialog.this.preview.getHeight());
-                        g.fillOval(thickdialog.this.preview.getWidth()/2-thickdialog.this.s.getValue()/2, thickdialog.this.preview.getHeight()/2-thickdialog.this.s.getValue()/2, thickdialog.this.s.getValue(), thickdialog.this.s.getValue());
+                        if(thickdialog.this.parent.parent.parent.status == Status.erase){
+                            g.clearRect(0, 0, thickdialog.this.preview.getWidth(), thickdialog.this.preview.getHeight());
+                            g.setColor(Color.white);
+                            g.fillRect(thickdialog.this.preview.getWidth()/2-thickdialog.this.s.getValue()/2, thickdialog.this.preview.getHeight()/2-thickdialog.this.s.getValue()/2, thickdialog.this.s.getValue(), thickdialog.this.s.getValue());
+                            g.setColor(Color.black);
+                            g.drawRect(thickdialog.this.preview.getWidth()/2-thickdialog.this.s.getValue()/2, thickdialog.this.preview.getHeight()/2-thickdialog.this.s.getValue()/2, thickdialog.this.s.getValue(), thickdialog.this.s.getValue());
+                        }
+                        else{
+                            g.clearRect(0, 0, thickdialog.this.preview.getWidth(), thickdialog.this.preview.getHeight());
+                            g.fillOval(thickdialog.this.preview.getWidth()/2-thickdialog.this.s.getValue()/2, thickdialog.this.preview.getHeight()/2-thickdialog.this.s.getValue()/2, thickdialog.this.s.getValue(), thickdialog.this.s.getValue());
+                        }
                     }
                 }
         );
@@ -55,8 +72,17 @@ public class thickdialog extends JDialog{
                     public void mouseClicked(MouseEvent e){
                         text.setText(Integer.toString(s.getValue()));
                         Graphics g = thickdialog.this.preview.getGraphics();
-                        g.clearRect(0, 0, thickdialog.this.preview.getWidth(), thickdialog.this.preview.getHeight());
-                        g.fillOval(thickdialog.this.preview.getWidth()/2-thickdialog.this.s.getValue()/2, thickdialog.this.preview.getHeight()/2-thickdialog.this.s.getValue()/2, thickdialog.this.s.getValue(), thickdialog.this.s.getValue());
+                        if(thickdialog.this.parent.parent.parent.status == Status.erase){
+                            g.clearRect(0, 0, thickdialog.this.preview.getWidth(), thickdialog.this.preview.getHeight());
+                            g.setColor(Color.white);
+                            g.fillRect(thickdialog.this.preview.getWidth()/2-thickdialog.this.s.getValue()/2, thickdialog.this.preview.getHeight()/2-thickdialog.this.s.getValue()/2, thickdialog.this.s.getValue(), thickdialog.this.s.getValue());
+                            g.setColor(Color.black);
+                            g.drawRect(thickdialog.this.preview.getWidth()/2-thickdialog.this.s.getValue()/2, thickdialog.this.preview.getHeight()/2-thickdialog.this.s.getValue()/2, thickdialog.this.s.getValue(), thickdialog.this.s.getValue());
+                        }
+                        else{
+                            g.clearRect(0, 0, thickdialog.this.preview.getWidth(), thickdialog.this.preview.getHeight());
+                            g.fillOval(thickdialog.this.preview.getWidth()/2-thickdialog.this.s.getValue()/2, thickdialog.this.preview.getHeight()/2-thickdialog.this.s.getValue()/2, thickdialog.this.s.getValue(), thickdialog.this.s.getValue());
+                        }
                     }
                 }
         );
@@ -71,8 +97,17 @@ public class thickdialog extends JDialog{
                             s.setValue(Integer.parseInt(text.getText()));
                         System.out.println(text.getText());
                         Graphics g = thickdialog.this.preview.getGraphics();
-                        g.clearRect(0, 0, thickdialog.this.preview.getWidth(), thickdialog.this.preview.getHeight());
-                        g.fillOval(thickdialog.this.preview.getWidth()/2-thickdialog.this.s.getValue()/2, thickdialog.this.preview.getHeight()/2-thickdialog.this.s.getValue()/2, thickdialog.this.s.getValue(), thickdialog.this.s.getValue());
+                        if(thickdialog.this.parent.parent.parent.status == Status.erase){
+                            g.clearRect(0, 0, thickdialog.this.preview.getWidth(), thickdialog.this.preview.getHeight());
+                            g.setColor(Color.white);
+                            g.fillRect(thickdialog.this.preview.getWidth()/2-thickdialog.this.s.getValue()/2, thickdialog.this.preview.getHeight()/2-thickdialog.this.s.getValue()/2, thickdialog.this.s.getValue(), thickdialog.this.s.getValue());
+                            g.setColor(Color.black);
+                            g.drawRect(thickdialog.this.preview.getWidth()/2-thickdialog.this.s.getValue()/2, thickdialog.this.preview.getHeight()/2-thickdialog.this.s.getValue()/2, thickdialog.this.s.getValue(), thickdialog.this.s.getValue());
+                        }
+                        else{
+                            g.clearRect(0, 0, thickdialog.this.preview.getWidth(), thickdialog.this.preview.getHeight());
+                            g.fillOval(thickdialog.this.preview.getWidth()/2-thickdialog.this.s.getValue()/2, thickdialog.this.preview.getHeight()/2-thickdialog.this.s.getValue()/2, thickdialog.this.s.getValue(), thickdialog.this.s.getValue());
+                        }
                     }
                 }
         );
