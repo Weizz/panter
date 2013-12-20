@@ -14,6 +14,7 @@ public class window extends JFrame{
         
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize(size);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setLocation(screen.width/2-800/2, screen.height/2-500/2);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 
@@ -21,9 +22,10 @@ public class window extends JFrame{
         Toolbar toolbar = new Toolbar(this);
         draw_area = new page(this);
         
+        this.setJMenuBar(menu);
         this.getContentPane().add(BorderLayout.PAGE_START, toolbar);
         this.getContentPane().add(BorderLayout.CENTER, draw_area);
-        this.getContentPane().add(BorderLayout.PAGE_END, menu);
+        //this.getContentPane().add(BorderLayout.WEST, menu);
         this.setVisible(true);
     }
 }

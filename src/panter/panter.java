@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.*;
 
 public class panter {
-    enum Status {drawline, freedraw, undraw, erase}
+    enum Status {drawline, freedraw, undraw, erase, create}
     Status status = Status.undraw;
     BufferedImage image = null;
     
