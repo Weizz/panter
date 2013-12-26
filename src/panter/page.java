@@ -3,7 +3,6 @@ package panter;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import panter.panter.Status;
 import java.util.*;
 
 public class page extends JPanel{
@@ -17,6 +16,9 @@ public class page extends JPanel{
     page(window p){
         super();
         parent = p;
+        
+        this.setLayout(null);
+        
         this.addMouseListener(
                 new MouseAdapter(){
                     public void mouseClicked(MouseEvent e){
@@ -51,7 +53,23 @@ public class page extends JPanel{
                     
                     public void mouseReleased(MouseEvent e){
                         if(parent.parent.status == Status.create){
-                            lines.add(new Line(lastpoint, e.getPoint(), thick, gcolor, 2));
+                            if(lastpoint.x < e.getX() && lastpoint.y < e.getY()){
+                                page.this.add(new PRect(page.this, lastpoint, new Dimension(e.getX()-lastpoint.x, e.getY()-lastpoint.y)));
+                            }
+                            else if(lastpoint.y < e.getY()){
+                                page.this.add(new PRect(page.this, new Point(e.getX(), lastpoint.y), new Dimension(lastpoint.x-e.getX(), e.getY()-lastpoint.y)));
+                                System.out.println(new Dimension(e.getX()-lastpoint.x, e.getY()-lastpoint.y));
+                                System.out.println(e.getY() + " - " + lastpoint.y);
+                            }
+                            else if(lastpoint.x < e.getX()){
+                                page.this.add(new PRect(page.this, new Point(lastpoint.x, e.getY()), new Dimension(e.getX()-lastpoint.x, lastpoint.y-e.getY())));
+                            }
+                            else{
+                                page.this.add(new PRect(page.this, e.getPoint(), new Dimension(lastpoint.x-e.getX(), lastpoint.y-e.getY())));
+                            }
+                            
+                            lastpoint = new Point(-1, -1);
+                            repaint();
                         }
                     }
                 }
@@ -96,11 +114,6 @@ public class page extends JPanel{
             if(l.getType() == 1){
                 g2.clearRect(l.getB().x-l.getThick()/2, l.getB().y-l.getThick()/2, l.getThick(), l.getThick());
             }
-            else if(l.getType() == 2){
-                g2.setColor(l.getColor());
-                g2.setStroke(new BasicStroke(l.getThick(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 30));
-                drawCreate(l.getA(), l.getB(), g2);
-            }
             else{
                 g2.setStroke(new BasicStroke(l.getThick(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 30));
                 g2.setColor(l.getColor());
@@ -109,9 +122,8 @@ public class page extends JPanel{
         }
         
         
-        if(parent.parent.status == Status.create){
-                g2.setStroke(new BasicStroke(thick, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 30));
-                g2.setColor(gcolor);
+        if(parent.parent.status == Status.create && lastpoint.x!=-1){
+                g2.setStroke(new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 5, new float[] {2, 6}, 5));
                 drawCreate(lastpoint, nowpoint, g2);
         } 
     }

@@ -3,7 +3,6 @@ package panter;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import panter.panter.Status;
 
 public class Toolbar extends JPanel{
     window parent = null;
