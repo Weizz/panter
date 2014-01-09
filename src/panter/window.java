@@ -21,7 +21,7 @@ public class window extends JFrame{
         Menu menu = new Menu(this);
         Toolbar toolbar = new Toolbar(this);
         draw_area = new page(this);
-        
+       
         this.setJMenuBar(menu);
         this.getContentPane().add(BorderLayout.PAGE_START, toolbar);
         this.getContentPane().add(BorderLayout.CENTER, draw_area);

@@ -9,6 +9,6 @@ public class panter {
     BufferedImage image = null;
     
     panter(){
-        window newwindow = new window("Panter Beta", new Dimension(800, 500), this);
+        window newwindow = new window("Panter V1", new Dimension(800, 500), this);
         }
 }

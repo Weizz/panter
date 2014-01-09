@@ -14,6 +14,9 @@ public class page extends JPanel{
     ArrayList<Line> lines = new ArrayList<Line>();
     ArrayList<PObject> objects = new ArrayList<PObject>();
     PObject selectObj = null;
+
+    resizePanel n = null, e = null, s = null, w = null,
+                ne = null, se = null, sw = null, nw = null;
     
     page(window p){
         super();
@@ -167,17 +170,22 @@ public class page extends JPanel{
             }
     }
     
-    private void drawResizePanel(Graphics g){
+    private void drawResizePanel(Graphics g){    
         final int RESIZE_N = 0, RESIZE_E = 1, RESIZE_S = 2, RESIZE_W = 3,
                   RESIZE_NE = 4, RESIZE_SE = 5, RESIZE_SW = 6, RESIZE_NW = 7;   //用來傳進resizePanel,方便閱讀用
+        if(n == null){  //第一次創出物件時,把條大小框框new出來
+            n = new resizePanel(this, RESIZE_N); e = new resizePanel(this, RESIZE_E); s = new resizePanel(this, RESIZE_S); w = new resizePanel(this, RESIZE_W); //new出resizePanel
+            ne = new resizePanel(this, RESIZE_NE); se = new resizePanel(this, RESIZE_SE); sw = new resizePanel(this, RESIZE_SW); nw = new resizePanel(this, RESIZE_NW);
+        }else{          //選到其他物件時,把框框移到他那
+            n.reLocate(); e.reLocate(); s.reLocate(); w.reLocate(); 
+            ne.reLocate(); se.reLocate(); sw.reLocate(); nw.reLocate();
+        }
         final int OVAL_SIZE = 15, RACT_SIZE = 10;   //後面畫出圓形、方形格子的大小設定
-        resizePanel n = new resizePanel(this, RESIZE_N), e = new resizePanel(this, RESIZE_E), s = new resizePanel(this, RESIZE_S), w = new resizePanel(this, RESIZE_W), //new出resizePanel
-                    ne = new resizePanel(this, RESIZE_NE), se = new resizePanel(this, RESIZE_SE), sw = new resizePanel(this, RESIZE_SW), nw = new resizePanel(this, RESIZE_NW); 
-        
+                
         Graphics2D g2 = (Graphics2D)g;
         g2.setStroke(new BasicStroke(2, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL, 30));
         g.setColor(Color.white);
-        g.fillOval(nw.getX(), nw.getY(), OVAL_SIZE, OVAL_SIZE);         //畫出條大小框框 ...
+        g.fillOval(nw.getX(), nw.getY(), OVAL_SIZE, OVAL_SIZE);         //畫出調大小框框 ...
         g.fillOval(ne.getX(), ne.getY(), OVAL_SIZE, OVAL_SIZE);
         g.fillOval(sw.getX(), sw.getY(), OVAL_SIZE, OVAL_SIZE);
         g.fillOval(se.getX(), se.getY(), OVAL_SIZE, OVAL_SIZE);

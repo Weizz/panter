@@ -41,6 +41,7 @@ public class resizePanel extends JPanel{
         if(diraction == RESIZE_NW)
             setLocation(parent.selectObj.getLocation().x-OVAL_SIZE/2, parent.selectObj.getLocation().y-OVAL_SIZE/2);
         
+        if(parent.selectObj.status != null){
         addMouseListener(new MouseAdapter(){
             public void mouseEntered(MouseEvent e) {        //滑鼠移到框上面時,設定鼠標
                 switch(dir){
@@ -59,17 +60,22 @@ public class resizePanel extends JPanel{
                 }
             }
             public void mousePressed(MouseEvent e){
-                parent.selectObj.status = Status.resize;    //變更selectObj的狀態為resize,調整時不出現邊框(只有在selected時才會畫出邊框)
-                objSize = parent.selectObj.getSize();     //紀錄調指位置前物件的大小
-                objStart = parent.selectObj.getLocation();  //紀錄調整前物件的位置
-                parent.repaint();
+                if(parent.selectObj != null){
+                    parent.selectObj.status = Status.resize;    //變更selectObj的狀態為resize,調整時不出現邊框(只有在selected時才會畫出邊框)
+                    objSize = parent.selectObj.getSize();     //紀錄調指位置前物件的大小
+                    objStart = parent.selectObj.getLocation();  //紀錄調整前物件的位置
+                    parent.repaint();
+                }
             }
             public void mouseReleased(MouseEvent e){
-                parent.selectObj.status = Status.selected;  //狀態改回selected
-                objStart = new Point(-1, -1);   //設為-1,-1 , mouseDragged時判斷是否為按住拖移用
-                parent.repaint();   //呼叫page重畫
+                if(parent.selectObj != null){
+                    parent.selectObj.status = Status.selected;  //狀態改回selected
+                    objStart = new Point(-1, -1);   //設為-1,-1 , mouseDragged時判斷是否為按住拖移用
+                    parent.repaint();   //呼叫page重畫
+                }
             } 
         });
+        }
         
         addMouseMotionListener(new MouseAdapter(){
             public void mouseDragged(MouseEvent e){     //各個方位調大小的方法
@@ -109,5 +115,24 @@ public class resizePanel extends JPanel{
                 }
             }
         });
+    }
+    
+    public void reLocate(){
+        if(dir == RESIZE_N)       //設定擺在哪
+            setLocation(parent.selectObj.getLocation().x + parent.selectObj.getWidth()/2 - RACT_SIZE/2, parent.selectObj.getLocation().y - RACT_SIZE/2);
+        if(dir == RESIZE_E)
+            setLocation(parent.selectObj.getLocation().x +  parent.selectObj.getWidth() - RACT_SIZE/2, parent.selectObj.getLocation().y +  parent.selectObj.getHeight()/2 - RACT_SIZE/2);
+        if(dir == RESIZE_S)
+            setLocation(parent.selectObj.getLocation().x + parent.selectObj.getWidth()/2 - RACT_SIZE/2, parent.selectObj.getLocation().y + parent.selectObj.getHeight() - RACT_SIZE/2);
+        if(dir == RESIZE_W)
+            setLocation(parent.selectObj.getLocation().x - RACT_SIZE/2, parent.selectObj.getLocation().y + parent.selectObj.getHeight()/2 - RACT_SIZE/2);
+        if(dir == RESIZE_NE)
+            setLocation(parent.selectObj.getLocation().x + parent.selectObj.getWidth() - OVAL_SIZE/2, parent.selectObj.getLocation().y - OVAL_SIZE/2);
+        if(dir == RESIZE_SE)
+            setLocation(parent.selectObj.getLocation().x + parent.selectObj.getWidth() - OVAL_SIZE/2, parent.selectObj.getLocation().y + parent.selectObj.getHeight() - OVAL_SIZE/2);
+        if(dir == RESIZE_SW)
+            setLocation(parent.selectObj.getLocation().x-OVAL_SIZE/2, parent.selectObj.getLocation().y + parent.selectObj.getHeight()-OVAL_SIZE/2);
+        if(dir == RESIZE_NW)
+            setLocation(parent.selectObj.getLocation().x-OVAL_SIZE/2, parent.selectObj.getLocation().y-OVAL_SIZE/2);
     }
 }
